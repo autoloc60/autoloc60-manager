@@ -1,0 +1,1 @@
+# autoloc60-manager
