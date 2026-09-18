@@ -140,6 +140,7 @@ body::before {
 #content > .section.grid h2 { color: #fff !important; }
 #content > .section.grid p { color: #fff !important; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <div class="app">
@@ -157,16 +158,25 @@ body::before {
 </aside>
 <main class="main">
 <div class="top"><div><h1 id="title">AutoLoc60 Manager</h1><div class="sub">Gestion privée — administrateur et salarié</div></div><div class="actions"><button class="btn" onclick="quickInspection()">📸 Nouvel état des lieux</button><button class="btn secondary" onclick="exportData()">Exporter les données</button></div></div>
+<div id="cloudbar" class="card" style="margin:12px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap"><strong>☁️ Synchronisation</strong><input id="cloudEmail" type="email" placeholder="E-mail" style="max-width:220px"><input id="cloudPassword" type="password" placeholder="Mot de passe" style="max-width:180px"><button class="btn" onclick="cloudLogin()">Connexion</button><button class="btn secondary" onclick="cloudSignup()">Créer un compte</button><button class="btn secondary" onclick="cloudLogout()">Déconnexion</button><span id="cloudStatus" class="muted">Non connecté</span></div>
 <section id="content"></section>
 </main>
 </div>
 <script>
 const $=s=>document.querySelector(s);
-const state=JSON.parse(localStorage.getItem('autoloc60')||'null')||{
-vehicles:[{id:1,name:'Peugeot 208',plate:'AB-123-CD',km:52450,status:'Disponible'},{id:2,name:'Renault Clio',plate:'EF-456-GH',km:68120,status:'Disponible'},{id:3,name:'Citroën C3',plate:'IJ-789-KL',km:41300,status:'Disponible'}],
-clients:[],rentals:[],inspections:[],contracts:[],deposits:[]
-};
-function save(){localStorage.setItem('autoloc60',JSON.stringify(state))}
+const SUPABASE_URL='https://fmtqgtdmubrxmwipcvwl.supabase.co';
+const SUPABASE_KEY='sb_publishable_qYQU2YnFwxsHM_xZhRT83w_hf4Sc8aP';
+const cloudClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const defaultState={vehicles:[{id:1,name:'Peugeot 208',plate:'AB-123-CD',km:52450,status:'Disponible'},{id:2,name:'Renault Clio',plate:'EF-456-GH',km:68120,status:'Disponible'},{id:3,name:'Citroën C3',plate:'IJ-789-KL',km:41300,status:'Disponible'}],clients:[],rentals:[],inspections:[],contracts:[],deposits:[]};
+let state=JSON.parse(localStorage.getItem('autoloc60')||'null')||structuredClone(defaultState);
+let cloudSession=null;
+function setCloudStatus(t){const el=$('#cloudStatus');if(el)el.textContent=t}
+async function save(){localStorage.setItem('autoloc60',JSON.stringify(state));if(!cloudSession)return;const {error}=await cloudClient.from('app_state').upsert({user_id:cloudSession.user.id,data:state},{onConflict:'user_id'});setCloudStatus(error?'Erreur de synchronisation':'Synchronisé ✓');if(error)console.error(error)}
+async function cloudLogin(){const email=$('#cloudEmail').value.trim(),password=$('#cloudPassword').value;if(!email||!password)return alert('Renseigne ton e-mail et ton mot de passe.');const {data,error}=await cloudClient.auth.signInWithPassword({email,password});if(error)return alert(error.message);cloudSession=data.session;await loadCloudState();setCloudStatus('Connecté : '+email)}
+async function cloudSignup(){const email=$('#cloudEmail').value.trim(),password=$('#cloudPassword').value;if(!email||!password)return alert('Renseigne ton e-mail et un mot de passe.');if(password.length<6)return alert('Le mot de passe doit contenir au moins 6 caractères.');const {error}=await cloudClient.auth.signUp({email,password});if(error)return alert(error.message);alert('Compte créé. Vérifie ton e-mail si Supabase le demande, puis connecte-toi.');}
+async function cloudLogout(){await cloudClient.auth.signOut();cloudSession=null;setCloudStatus('Non connecté')}
+async function loadCloudState(){if(!cloudSession)return;const {data,error}=await cloudClient.from('app_state').select('data').eq('user_id',cloudSession.user.id).maybeSingle();if(error){setCloudStatus('Table non configurée');console.error(error);return}if(data&&data.data){state=data.data;localStorage.setItem('autoloc60',JSON.stringify(state));render(document.querySelector('.nav button.active')?.dataset.page||'dashboard')}else{await save()} }
+async function initCloud(){const {data}=await cloudClient.auth.getSession();cloudSession=data.session;if(cloudSession){await loadCloudState();setCloudStatus('Connecté ✓')}else setCloudStatus('Non connecté — données locales')}
 function page(p){$('#title').textContent={dashboard:'Tableau de bord',vehicles:'Véhicules',rentals:'Locations',clients:'Clients',inspections:'États des lieux',contracts:'Contrats',deposits:'Cautions'}[p];document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));render(p)}
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>page(b.dataset.page));
 function render(p='dashboard'){
@@ -379,6 +389,7 @@ body::before{display:none!important;}
 }
 
 render();
+initCloud();
 </script>
 <style id="autoloc60-final-no-stretch">
 html,body{min-height:100%;}

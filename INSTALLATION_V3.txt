@@ -1,0 +1,16 @@
+AUTOLOC60 MANAGER V3 — SYNCHRONISATION
+
+1. Dans Supabase, ouvre SQL Editor > New query.
+2. Ouvre le fichier SUPABASE_SETUP.sql fourni avec ce dossier.
+3. Copie tout son contenu dans la requête SQL, puis clique sur Run.
+4. Dans index.html, les paramètres Supabase sont déjà renseignés.
+5. Publie/remplace index.html sur GitHub Pages.
+6. Ouvre le site sur ordinateur et téléphone.
+7. Dans la barre « Synchronisation », crée un compte avec un e-mail et un mot de passe.
+8. Connecte-toi avec le même compte sur les deux appareils.
+
+Important :
+- Ne partage jamais une clé sb_secret_...
+- Les deux appareils doivent utiliser le même compte pour partager les données.
+- Cette version synchronise les données de gestion. Les photos stockées uniquement dans le navigateur ne sont pas encore transférées dans un stockage cloud.
+- Fais un export des données avant toute modification importante.
