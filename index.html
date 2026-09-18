@@ -205,4 +205,15 @@ w.document.write(`<html lang="fr"><head><title>Contrat de location AutoLoc60</ti
 render();
 </script>
 </body>
-</html>
+</html><style id="autoloc60-wallpaper-fix">
+html, body { min-height:100%; }
+body {
+  background-image: linear-gradient(rgba(8,18,32,.30),rgba(8,18,32,.30)), url('fond-auto.png?v=2') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+.app { background: transparent !important; }
+.main { background: rgba(255,255,255,.16) !important; }
+</style>
