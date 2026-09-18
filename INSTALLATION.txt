@@ -1,0 +1,3 @@
+AutoLoc60 Manager — modèle 2 corrigé
+
+Fichiers à envoyer sur GitHub : index.html, logo.png, fond-auto-v10.png
