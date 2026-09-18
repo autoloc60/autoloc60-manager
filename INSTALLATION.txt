@@ -1,3 +1,8 @@
-AutoLoc60 Manager — modèle 2 corrigé
+AutoLoc60 Manager — Version 3 style inspiré de la maquette fournie
 
-Fichiers à envoyer sur GitHub : index.html, logo.png, fond-auto-v10.png
+1. Remplacez le fichier index.html de votre dépôt GitHub par celui-ci.
+2. Conservez logo.png et fond-auto-v14.jpg dans le même dossier.
+3. Enregistrez les modifications avec Commit changes.
+4. Attendez quelques instants puis rechargez le site avec Ctrl+F5.
+
+Attention : cette version reste un prototype local. Les données sont stockées dans le navigateur.
