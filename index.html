@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AutoLoc60 Manager</title>
+<style>
+:root{--red:#d71920;--dark:#101317;--muted:#667085;--bg:#f4f6f8;--card:#fff}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:#171a1f}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{display:flex;min-height:100vh}.sidebar{width:245px;background:var(--dark);color:#fff;padding:18px 12px;position:sticky;top:0;height:100vh}
+.logo{width:100%;max-height:110px;object-fit:contain;background:#fff;border-radius:10px;margin-bottom:18px}
+.nav button{display:block;width:100%;text-align:left;padding:13px 12px;border:0;background:transparent;color:#e8eaed;border-radius:9px;margin:4px 0}
+.nav button.active,.nav button:hover{background:var(--red);color:#fff}
+.main{flex:1;padding:24px;max-width:1600px;margin:auto}.top{display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap}
+h1{margin:0;font-size:28px}.sub{color:var(--muted);margin:5px 0 20px}.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:8px;padding:10px 14px;background:var(--red);color:#fff;font-weight:700}.btn.secondary{background:#e9edf2;color:#20252b}.btn.dark{background:var(--dark)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px}.card{background:var(--card);border-radius:13px;padding:18px;box-shadow:0 2px 12px #1013170b}.metric strong{font-size:30px;display:block;margin:8px 0}.muted{color:var(--muted);font-size:14px}
+.section{margin-top:18px}.section h2{font-size:20px;margin:0 0 12px}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:12px;border-bottom:1px solid #edf0f3;white-space:nowrap}.badge{padding:5px 9px;border-radius:99px;font-size:12px;font-weight:700;background:#e8f7ed;color:#16733a}.badge.red{background:#ffe7e8;color:#a51018}
+.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.field label{display:block;font-weight:700;font-size:13px;margin-bottom:5px}.field input,.field select,.field textarea{width:100%;padding:10px;border:1px solid #d8dee6;border-radius:8px;background:#fff}.field textarea{min-height:90px}
+.hidden{display:none}.photo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.photo-slot{border:2px dashed #cbd3dc;border-radius:10px;padding:10px;text-align:center;background:#fafbfc}.photo-slot img{width:100%;height:105px;object-fit:cover;border-radius:7px;margin-top:8px}
+.notice{padding:12px;border-left:4px solid var(--red);background:#fff3f3;border-radius:8px;margin:12px 0}.signature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}.signature-box{border:1px solid #d8dee6;border-radius:10px;padding:10px}.signature-box canvas{width:100%;height:150px;border:1px dashed #aab4c0;border-radius:7px;background:#fff;touch-action:none}.signature-box button{margin-top:7px}
+@media(max-width:800px){.app{display:block}.sidebar{width:100%;height:auto;position:static}.logo{height:85px}.nav{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.nav button{font-size:12px;padding:9px}.main{padding:15px}h1{font-size:23px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+<img class="logo" src="logo.png" alt="AutoLoc60">
+<nav class="nav" id="nav">
+<button data-page="dashboard" class="active">🏠 Tableau de bord</button>
+<button data-page="vehicles">🚘 Véhicules</button>
+<button data-page="rentals">📅 Locations</button>
+<button data-page="clients">👥 Clients</button>
+<button data-page="inspections">📸 États des lieux</button>
+<button data-page="contracts">📄 Contrats</button>
+<button data-page="deposits">💳 Cautions</button>
+</nav>
+</aside>
+<main class="main">
+<div class="top"><div><h1 id="title">AutoLoc60 Manager</h1><div class="sub">Gestion privée — administrateur et salarié</div></div><div class="actions"><button class="btn" onclick="quickInspection()">📸 Nouvel état des lieux</button><button class="btn secondary" onclick="exportData()">Exporter les données</button></div></div>
+<section id="content"></section>
+</main>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+const state=JSON.parse(localStorage.getItem('autoloc60')||'null')||{
+vehicles:[{id:1,name:'Peugeot 208',plate:'AB-123-CD',km:52450,status:'Disponible'},{id:2,name:'Renault Clio',plate:'EF-456-GH',km:68120,status:'Disponible'},{id:3,name:'Citroën C3',plate:'IJ-789-KL',km:41300,status:'Disponible'}],
+clients:[],rentals:[],inspections:[],contracts:[],deposits:[]
+};
+function save(){localStorage.setItem('autoloc60',JSON.stringify(state))}
+function page(p){$('#title').textContent={dashboard:'Tableau de bord',vehicles:'Véhicules',rentals:'Locations',clients:'Clients',inspections:'États des lieux',contracts:'Contrats',deposits:'Cautions'}[p];document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));render(p)}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>page(b.dataset.page));
+function render(p='dashboard'){
+if(p==='dashboard')return dashboard();
+if(p==='vehicles')return vehicles();
+if(p==='rentals')return rentals();
+if(p==='clients')return clients();
+if(p==='inspections')return inspections();
+if(p==='contracts')return contracts();
+if(p==='deposits')return deposits();
+}
+function dashboard(){
+$('#content').innerHTML=`<div class="grid">
+<div class="card metric">🚘 Véhicules<strong>${state.vehicles.length}</strong><span class="muted">Parc enregistré</span></div>
+<div class="card metric">🔑 Locations en cours<strong>${state.rentals.filter(x=>x.status==='En cours').length}</strong><span class="muted">À surveiller</span></div>
+<div class="card metric">📸 États des lieux<strong>${state.inspections.length}</strong><span class="muted">Départs et retours</span></div>
+<div class="card metric">💳 Cautions<strong>${state.deposits.filter(x=>x.status!=='Restituée').length}</strong><span class="muted">À suivre</span></div>
+</div>
+<div class="section grid"><div class="card"><h2>Actions rapides</h2><div class="actions"><button class="btn" onclick="newRental()">+ Nouvelle location</button><button class="btn secondary" onclick="newClient()">+ Nouveau client</button><button class="btn secondary" onclick="quickInspection()">📸 État des lieux</button><button class="btn secondary" onclick="newContract()">📄 Contrat</button></div></div>
+<div class="card"><h2>Dernières opérations</h2>${state.inspections.slice(-5).reverse().map(x=>`<p>📸 ${x.type} — ${x.vehicle||''} <span class="muted">${x.date||''}</span></p>`).join('')||'<p class="muted">Aucune opération pour le moment.</p>'}</div></div>`;
+}
+function vehicles(){
+$('#content').innerHTML=`<div class="actions"><button class="btn" onclick="newVehicle()">+ Ajouter un véhicule</button></div><div class="section card tablewrap"><table class="table"><tr><th>Véhicule</th><th>Immatriculation</th><th>Kilométrage</th><th>Statut</th></tr>${state.vehicles.map(v=>`<tr><td>${v.name}</td><td>${v.plate}</td><td>${v.km} km</td><td><span class="badge">${v.status}</span></td></tr>`).join('')}</table></div>`;
+}
+function clients(){
+$('#content').innerHTML=`<div class="actions"><button class="btn" onclick="newClient()">+ Ajouter un client</button></div><div class="section card tablewrap"><table class="table"><tr><th>Nom</th><th>Téléphone</th><th>E-mail</th></tr>${state.clients.map(c=>`<tr><td>${c.name}</td><td>${c.phone||''}</td><td>${c.email||''}</td></tr>`).join('')||'<tr><td colspan="3">Aucun client</td></tr>'}</table></div>`;
+}
+function rentals(){
+$('#content').innerHTML=`<div class="actions"><button class="btn" onclick="newRental()">+ Nouvelle location</button></div><div class="section card tablewrap"><table class="table"><tr><th>Client</th><th>Véhicule</th><th>Départ</th><th>Retour</th><th>Statut</th></tr>${state.rentals.map(r=>`<tr><td>${r.client}</td><td>${r.vehicle}</td><td>${r.start}</td><td>${r.end}</td><td><span class="badge">${r.status}</span></td></tr>`).join('')||'<tr><td colspan="5">Aucune location</td></tr>'}</table></div>`;
+}
+function inspections(){
+$('#content').innerHTML=`<div class="notice">Chaque état des lieux peut contenir des photos prises avec le téléphone, le kilométrage, le carburant, les dommages et les observations. Les données de cette version sont enregistrées dans le navigateur.</div><div class="actions"><button class="btn" onclick="quickInspection()">+ État des lieux départ/retour</button></div><div class="section card tablewrap"><table class="table"><tr><th>Type</th><th>Véhicule</th><th>Date</th><th>Photos</th><th>Observations</th></tr>${state.inspections.map(i=>`<tr><td>${i.type}</td><td>${i.vehicle}</td><td>${i.date}</td><td>${i.photos?.length||0}</td><td>${i.notes||''}</td></tr>`).join('')||'<tr><td colspan="5">Aucun état des lieux</td></tr>'}</table></div>`;
+}
+function contracts(){
+$('#content').innerHTML=`<div class="notice">Les contrats peuvent être créés avec deux signatures dessinées à l'écran. Cette version permet ensuite d'imprimer/enregistrer le contrat en PDF via la fenêtre d'impression du téléphone ou de l'ordinateur.</div><div class="actions"><button class="btn" onclick="newContract()">+ Créer un contrat signé</button></div><div class="section card tablewrap"><table class="table"><tr><th>Client</th><th>Véhicule</th><th>Date</th><th>Montant</th><th>Action</th></tr>${state.contracts.map((c,i)=>`<tr><td>${c.client}</td><td>${c.vehicle}</td><td>${c.date}</td><td>${c.amount||0} €</td><td><button class="btn secondary" onclick="printContract(${i})">🖨️ PDF / Imprimer</button></td></tr>`).join('')||'<tr><td colspan="5">Aucun contrat</td></tr>'}</table></div>`;
+}
+function deposits(){
+$('#content').innerHTML=`<div class="actions"><button class="btn" onclick="newDeposit()">+ Ajouter une caution</button></div><div class="section card tablewrap"><table class="table"><tr><th>Client</th><th>Montant</th><th>Mode</th><th>Statut</th></tr>${state.deposits.map(d=>`<tr><td>${d.client}</td><td>${d.amount} €</td><td>${d.method}</td><td><span class="badge">${d.status}</span></td></tr>`).join('')||'<tr><td colspan="4">Aucune caution</td></tr>'}</table></div>`;
+}
+function modal(title,body,onSubmit){const wrap=document.createElement('div');wrap.style.cssText='position:fixed;inset:0;background:#0008;display:grid;place-items:center;padding:15px;z-index:10';wrap.innerHTML=`<div class="card" style="width:min(760px,100%);max-height:95vh;overflow:auto"><h2>${title}</h2>${body}<div class="actions" style="margin-top:15px"><button class="btn" id="ok">Enregistrer</button><button class="btn secondary" id="cancel">Annuler</button></div></div>`;document.body.append(wrap);$('#cancel').onclick=()=>wrap.remove();$('#ok').onclick=()=>{onSubmit(wrap);wrap.remove();save();render(document.querySelector('.nav button.active').dataset.page)}}
+function newVehicle(){modal('Ajouter un véhicule',`<div class="formgrid"><div class="field"><label>Marque / modèle</label><input id="name"></div><div class="field"><label>Immatriculation</label><input id="plate"></div><div class="field"><label>Kilométrage</label><input id="km" type="number"></div></div>`,()=>state.vehicles.push({id:Date.now(),name:$('#name').value,plate:$('#plate').value,km:+$('#km').value||0,status:'Disponible'}))}
+function newClient(){modal('Nouveau client',`<div class="formgrid"><div class="field"><label>Nom et prénom</label><input id="name"></div><div class="field"><label>Téléphone</label><input id="phone"></div><div class="field"><label>E-mail</label><input id="email" type="email"></div></div>`,()=>state.clients.push({name:$('#name').value,phone:$('#phone').value,email:$('#email').value}))}
+function newRental(){modal('Nouvelle location',`<div class="formgrid"><div class="field"><label>Client</label><input id="client"></div><div class="field"><label>Véhicule</label><select id="vehicle">${state.vehicles.map(v=>`<option>${v.name}</option>`).join('')}</select></div><div class="field"><label>Départ</label><input id="start" type="datetime-local"></div><div class="field"><label>Retour</label><input id="end" type="datetime-local"></div></div>`,()=>state.rentals.push({client:$('#client').value,vehicle:$('#vehicle').value,start:$('#start').value,end:$('#end').value,status:'Prévue'}))}
+function quickInspection(){modal('État des lieux départ / retour',`<div class="formgrid"><div class="field"><label>Type</label><select id="type"><option>Départ</option><option>Retour</option></select></div><div class="field"><label>Véhicule</label><select id="vehicle">${state.vehicles.map(v=>`<option>${v.name}</option>`).join('')}</select></div><div class="field"><label>Kilométrage</label><input id="km" type="number"></div><div class="field"><label>Carburant</label><select id="fuel"><option>Réservoir plein</option><option>3/4</option><option>1/2</option><option>1/4</option><option>Réserve</option></select></div><div class="field"><label>Lieu</label><input id="place"></div></div><div class="field"><label>Photos du véhicule (plusieurs possibles)</label><input id="photos" type="file" accept="image/*" multiple><div id="preview" class="photo-grid"></div></div><div class="field"><label>Observations / dommages</label><textarea id="notes"></textarea></div>`,wrap=>{const files=[...wrap.querySelector('#photos').files];const photos=files.map(f=>URL.createObjectURL(f));state.inspections.push({type:wrap.querySelector('#type').value,vehicle:wrap.querySelector('#vehicle').value,km:wrap.querySelector('#km').value,fuel:wrap.querySelector('#fuel').value,place:wrap.querySelector('#place').value,notes:wrap.querySelector('#notes').value,date:new Date().toLocaleString('fr-FR'),photos})})}
+function newContract(){
+modal('Créer un contrat de location et signer',`<div class="formgrid">
+<div class="field"><label>Client</label><input id="client" required></div>
+<div class="field"><label>Véhicule</label><select id="vehicle">${state.vehicles.map(v=>`<option>${v.name}</option>`).join('')}</select></div>
+<div class="field"><label>Date de départ</label><input id="start" type="datetime-local"></div>
+<div class="field"><label>Date de retour</label><input id="end" type="datetime-local"></div>
+<div class="field"><label>Montant total (€)</label><input id="amount" type="number"></div>
+<div class="field"><label>Caution (€)</label><input id="deposit" type="number"></div>
+</div>
+<div class="field"><label>Conditions / observations</label><textarea id="terms" placeholder="Conditions particulières..."></textarea></div>
+<div class="signature-grid">
+<div class="signature-box"><strong>Signature du client</strong><canvas id="clientSig" width="600" height="300"></canvas><button class="btn secondary" type="button" onclick="clearSignature('clientSig')">Effacer</button></div>
+<div class="signature-box"><strong>Signature AutoLoc60</strong><canvas id="ownerSig" width="600" height="300"></canvas><button class="btn secondary" type="button" onclick="clearSignature('ownerSig')">Effacer</button></div>
+</div>
+<p class="muted">Le document pourra être imprimé ou enregistré en PDF. Pour une signature électronique avec vérification d'identité et certificat, un prestataire spécialisé devra être ajouté ultérieurement.</p>`,wrap=>{
+const c={client:wrap.querySelector('#client').value,vehicle:wrap.querySelector('#vehicle').value,start:wrap.querySelector('#start').value,end:wrap.querySelector('#end').value,amount:wrap.querySelector('#amount').value,deposit:wrap.querySelector('#deposit').value,terms:wrap.querySelector('#terms').value,date:new Date().toLocaleDateString('fr-FR'),clientSig:wrap.querySelector('#clientSig').toDataURL('image/png'),ownerSig:wrap.querySelector('#ownerSig').toDataURL('image/png')};
+state.contracts.push(c);
+});
+setTimeout(()=>{setupSignature('clientSig');setupSignature('ownerSig')},50);
+}
+function newDeposit(){modal('Nouvelle caution',`<div class="formgrid"><div class="field"><label>Client</label><input id="client"></div><div class="field"><label>Montant (€)</label><input id="amount" type="number"></div><div class="field"><label>Mode</label><select id="method"><option>Carte bancaire</option><option>Chèque</option><option>Espèces</option><option>Autre</option></select></div><div class="field"><label>Statut</label><select id="status"><option>En attente</option><option>En cours</option><option>Restituée</option></select></div></div>`,()=>state.deposits.push({client:$('#client').value,amount:$('#amount').value,method:$('#method').value,status:$('#status').value}))}
+function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='autoloc60-donnees.json';a.click()}
+
+function setupSignature(id){
+const canvas=document.getElementById(id); if(!canvas)return;
+const ctx=canvas.getContext('2d');ctx.lineWidth=3;ctx.lineCap='round';let drawing=false;
+function pos(e){const r=canvas.getBoundingClientRect();const t=e.touches?e.touches[0]:e;return{x:(t.clientX-r.left)*canvas.width/r.width,y:(t.clientY-r.top)*canvas.height/r.height}}
+function start(e){drawing=true;const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);e.preventDefault()}
+function move(e){if(!drawing)return;const p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke();e.preventDefault()}
+function end(){drawing=false}
+canvas.addEventListener('pointerdown',start);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',end);canvas.addEventListener('pointerleave',end);
+}
+function clearSignature(id){const c=document.getElementById(id);if(c)c.getContext('2d').clearRect(0,0,c.width,c.height)}
+function printContract(i){
+const c=state.contracts[i];if(!c)return;
+const w=window.open('','_blank');if(!w){alert('Autorisez les fenêtres contextuelles pour imprimer le contrat.');return}
+w.document.write(`<html lang="fr"><head><title>Contrat AutoLoc60</title><style>body{font-family:Arial;padding:35px;line-height:1.5}h1{text-align:center}hr{margin:20px 0}.sign{display:flex;gap:40px;margin-top:45px}.sign div{flex:1;border-top:1px solid #333;padding-top:8px}.sign img{max-width:100%;height:120px;object-fit:contain}</style></head><body>
+<h1>CONTRAT DE LOCATION DE VÉHICULE</h1><h2>AutoLoc60 — Location de véhicules</h2><hr>
+<p><strong>Locataire :</strong> ${c.client||''}</p><p><strong>Véhicule :</strong> ${c.vehicle||''}</p><p><strong>Départ :</strong> ${c.start||''}</p><p><strong>Retour :</strong> ${c.end||''}</p><p><strong>Montant de la location :</strong> ${c.amount||0} €</p><p><strong>Caution :</strong> ${c.deposit||0} €</p><h3>Conditions particulières</h3><p>${(c.terms||'').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</p>
+<div class="sign"><div><strong>Signature du client</strong><br>${c.clientSig?`<img src="${c.clientSig}">`:''}</div><div><strong>Signature AutoLoc60</strong><br>${c.ownerSig?`<img src="${c.ownerSig}">`:''}</div></div>
+<p style="margin-top:50px;font-size:12px">Document généré par AutoLoc60 Manager. À adapter aux conditions générales de location applicables.</p>
+<script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close();
+}
+
+render();
+</script>
+</body>
+</html>
