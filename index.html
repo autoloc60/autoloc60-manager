@@ -431,3 +431,33 @@ body::before{display:none!important;}
 .app,.main{background:transparent!important;}
 @media(max-width:800px){body{background-position:center top!important;background-size:auto 100vh!important;background-attachment:scroll!important;}.main{background:rgba(8,18,32,.20)!important;}}
 </style>
+
+<style id="autoloc60-modele-2-correction">
+/* Correction définitive du modèle 2 : tableau de bord sans encadrés */
+#content > .grid:first-child,
+#content > .section.grid {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+#content > .grid:first-child > .card,
+#content > .section.grid > .card {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  color: #fff !important;
+}
+#content > .grid:first-child > .card .muted,
+#content > .section.grid > .card .muted {
+  color: rgba(255,255,255,.82) !important;
+}
+#content > .grid:first-child > .card strong {
+  color: #fff !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,.35);
+}
+#content > .section.grid > .card h2,
+#content > .section.grid > .card p {
+  color: #fff !important;
+}
+</style>
