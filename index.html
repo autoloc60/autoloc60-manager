@@ -94,21 +94,42 @@ function newClient(){modal('Nouveau client',`<div class="formgrid"><div class="f
 function newRental(){modal('Nouvelle location',`<div class="formgrid"><div class="field"><label>Client</label><input id="client"></div><div class="field"><label>Véhicule</label><select id="vehicle">${state.vehicles.map(v=>`<option>${v.name}</option>`).join('')}</select></div><div class="field"><label>Départ</label><input id="start" type="datetime-local"></div><div class="field"><label>Retour</label><input id="end" type="datetime-local"></div></div>`,()=>state.rentals.push({client:$('#client').value,vehicle:$('#vehicle').value,start:$('#start').value,end:$('#end').value,status:'Prévue'}))}
 function quickInspection(){modal('État des lieux départ / retour',`<div class="formgrid"><div class="field"><label>Type</label><select id="type"><option>Départ</option><option>Retour</option></select></div><div class="field"><label>Véhicule</label><select id="vehicle">${state.vehicles.map(v=>`<option>${v.name}</option>`).join('')}</select></div><div class="field"><label>Kilométrage</label><input id="km" type="number"></div><div class="field"><label>Carburant</label><select id="fuel"><option>Réservoir plein</option><option>3/4</option><option>1/2</option><option>1/4</option><option>Réserve</option></select></div><div class="field"><label>Lieu</label><input id="place"></div></div><div class="field"><label>Photos du véhicule (plusieurs possibles)</label><input id="photos" type="file" accept="image/*" multiple><div id="preview" class="photo-grid"></div></div><div class="field"><label>Observations / dommages</label><textarea id="notes"></textarea></div>`,wrap=>{const files=[...wrap.querySelector('#photos').files];const photos=files.map(f=>URL.createObjectURL(f));state.inspections.push({type:wrap.querySelector('#type').value,vehicle:wrap.querySelector('#vehicle').value,km:wrap.querySelector('#km').value,fuel:wrap.querySelector('#fuel').value,place:wrap.querySelector('#place').value,notes:wrap.querySelector('#notes').value,date:new Date().toLocaleString('fr-FR'),photos})})}
 function newContract(){
-modal('Créer un contrat de location et signer',`<div class="formgrid">
-<div class="field"><label>Client</label><input id="client" required></div>
-<div class="field"><label>Véhicule</label><select id="vehicle">${state.vehicles.map(v=>`<option>${v.name}</option>`).join('')}</select></div>
-<div class="field"><label>Date de départ</label><input id="start" type="datetime-local"></div>
-<div class="field"><label>Date de retour</label><input id="end" type="datetime-local"></div>
-<div class="field"><label>Montant total (€)</label><input id="amount" type="number"></div>
-<div class="field"><label>Caution (€)</label><input id="deposit" type="number"></div>
+modal('Créer un contrat AutoLoc60 et signer',`<div class="notice">Ce formulaire reprend la structure de ton contrat de base. Les champs peuvent être complétés avant l’impression ou l’enregistrement en PDF.</div>
+<h3>Informations du locataire</h3><div class="formgrid">
+<div class="field"><label>Nom et prénom</label><input id="client" required></div>
+<div class="field"><label>Date de naissance</label><input id="birthDate" type="date"></div>
+<div class="field"><label>Adresse</label><input id="address"></div>
+<div class="field"><label>CP / Ville</label><input id="city"></div>
+<div class="field"><label>E-mail</label><input id="email" type="email"></div>
+<div class="field"><label>N° pièce d’identité</label><input id="idNo"></div>
+<div class="field"><label>N° permis</label><input id="licenseNo"></div>
+<div class="field"><label>Permis obtenu le</label><input id="licenseDate" type="date"></div>
+<div class="field"><label>Préfecture</label><input id="prefecture"></div>
 </div>
-<div class="field"><label>Conditions / observations</label><textarea id="terms" placeholder="Conditions particulières..."></textarea></div>
+<h3>Véhicule loué</h3><div class="formgrid">
+<div class="field"><label>Marque</label><input id="brand" value="RENAULT"></div>
+<div class="field"><label>Modèle</label><input id="model" value="CLIO 5 Hybride"></div>
+<div class="field"><label>Immatriculation</label><input id="plate" value="GD-531-LP"></div>
+<div class="field"><label>Kilométrage de départ</label><input id="kmStart" type="number"></div>
+<div class="field"><label>Type de carburant</label><input id="fuelType" value="Essence"></div>
+<div class="field"><label>Autonomie / niveau au départ</label><input id="fuelStart"></div>
+</div>
+<h3>Durée et prix</h3><div class="formgrid">
+<div class="field"><label>Date et heure de départ</label><input id="start" type="datetime-local"></div>
+<div class="field"><label>Date et heure de retour prévues</label><input id="end" type="datetime-local"></div>
+<div class="field"><label>Montant total de la location (€)</label><input id="amount" type="number"></div>
+<div class="field"><label>Dépôt de garantie (€)</label><input id="deposit" type="number" value="300"></div>
+<div class="field"><label>Forfait kilométrique</label><select id="kmPackage"><option>400 km par semaine</option><option>1500 km par mois</option><option>Autre / à préciser</option></select></div>
+<div class="field"><label>Kilomètres supplémentaires (€ / km)</label><input id="extraKmPrice" type="number" step="0.01" value="0.25"></div>
+</div>
+<div class="field"><label>Conditions particulières / observations</label><textarea id="terms" placeholder="Conditions particulières éventuelles..."></textarea></div>
 <div class="signature-grid">
-<div class="signature-box"><strong>Signature du client</strong><canvas id="clientSig" width="600" height="300"></canvas><button class="btn secondary" type="button" onclick="clearSignature('clientSig')">Effacer</button></div>
-<div class="signature-box"><strong>Signature AutoLoc60</strong><canvas id="ownerSig" width="600" height="300"></canvas><button class="btn secondary" type="button" onclick="clearSignature('ownerSig')">Effacer</button></div>
+<div class="signature-box"><strong>Signature du locataire</strong><canvas id="clientSig" width="600" height="300"></canvas><button class="btn secondary" type="button" onclick="clearSignature('clientSig')">Effacer</button></div>
+<div class="signature-box"><strong>Signature du loueur — AutoLoc60</strong><canvas id="ownerSig" width="600" height="300"></canvas><button class="btn secondary" type="button" onclick="clearSignature('ownerSig')">Effacer</button></div>
 </div>
-<p class="muted">Le document pourra être imprimé ou enregistré en PDF. Pour une signature électronique avec vérification d'identité et certificat, un prestataire spécialisé devra être ajouté ultérieurement.</p>`,wrap=>{
-const c={client:wrap.querySelector('#client').value,vehicle:wrap.querySelector('#vehicle').value,start:wrap.querySelector('#start').value,end:wrap.querySelector('#end').value,amount:wrap.querySelector('#amount').value,deposit:wrap.querySelector('#deposit').value,terms:wrap.querySelector('#terms').value,date:new Date().toLocaleDateString('fr-FR'),clientSig:wrap.querySelector('#clientSig').toDataURL('image/png'),ownerSig:wrap.querySelector('#ownerSig').toDataURL('image/png')};
+<p class="muted">La signature dessinée est une signature électronique simple. Cette version ne fournit pas de certificat qualifié ni de vérification d’identité.</p>`,wrap=>{
+const q=id=>wrap.querySelector('#'+id).value;
+const c={client:q('client'),birthDate:q('birthDate'),address:q('address'),city:q('city'),email:q('email'),idNo:q('idNo'),licenseNo:q('licenseNo'),licenseDate:q('licenseDate'),prefecture:q('prefecture'),brand:q('brand'),model:q('model'),plate:q('plate'),kmStart:q('kmStart'),fuelType:q('fuelType'),fuelStart:q('fuelStart'),start:q('start'),end:q('end'),amount:q('amount'),deposit:q('deposit'),kmPackage:q('kmPackage'),extraKmPrice:q('extraKmPrice'),terms:q('terms'),date:new Date().toLocaleDateString('fr-FR'),clientSig:wrap.querySelector('#clientSig').toDataURL('image/png'),ownerSig:wrap.querySelector('#ownerSig').toDataURL('image/png')};
 state.contracts.push(c);
 });
 setTimeout(()=>{setupSignature('clientSig');setupSignature('ownerSig')},50);
@@ -129,11 +150,30 @@ function clearSignature(id){const c=document.getElementById(id);if(c)c.getContex
 function printContract(i){
 const c=state.contracts[i];if(!c)return;
 const w=window.open('','_blank');if(!w){alert('Autorisez les fenêtres contextuelles pour imprimer le contrat.');return}
-w.document.write(`<html lang="fr"><head><title>Contrat AutoLoc60</title><style>body{font-family:Arial;padding:35px;line-height:1.5}h1{text-align:center}hr{margin:20px 0}.sign{display:flex;gap:40px;margin-top:45px}.sign div{flex:1;border-top:1px solid #333;padding-top:8px}.sign img{max-width:100%;height:120px;object-fit:contain}</style></head><body>
-<h1>CONTRAT DE LOCATION DE VÉHICULE</h1><h2>AutoLoc60 — Location de véhicules</h2><hr>
-<p><strong>Locataire :</strong> ${c.client||''}</p><p><strong>Véhicule :</strong> ${c.vehicle||''}</p><p><strong>Départ :</strong> ${c.start||''}</p><p><strong>Retour :</strong> ${c.end||''}</p><p><strong>Montant de la location :</strong> ${c.amount||0} €</p><p><strong>Caution :</strong> ${c.deposit||0} €</p><h3>Conditions particulières</h3><p>${(c.terms||'').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</p>
-<div class="sign"><div><strong>Signature du client</strong><br>${c.clientSig?`<img src="${c.clientSig}">`:''}</div><div><strong>Signature AutoLoc60</strong><br>${c.ownerSig?`<img src="${c.ownerSig}">`:''}</div></div>
-<p style="margin-top:50px;font-size:12px">Document généré par AutoLoc60 Manager. À adapter aux conditions générales de location applicables.</p>
+const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+const dateFr=v=>v?new Date(v).toLocaleString('fr-FR'):'________________';
+w.document.write(`<html lang="fr"><head><title>Contrat de location AutoLoc60</title><style>body{font-family:Arial,sans-serif;padding:30px;line-height:1.45;font-size:12px}h1{text-align:center;font-size:20px}h2{font-size:15px;margin-top:18px}h3{font-size:13px;margin-bottom:5px}hr{margin:15px 0}.box{border:1px solid #999;padding:10px;margin:8px 0}.sign{display:flex;gap:35px;margin-top:35px;page-break-inside:avoid}.sign div{flex:1;border-top:1px solid #333;padding-top:8px;min-height:130px}.sign img{max-width:100%;height:100px;object-fit:contain}.article{page-break-inside:avoid}.small{font-size:10px}</style></head><body>
+<h1>CONTRAT DE LOCATION DE VÉHICULE</h1><p style="text-align:center"><strong>(COURTE DURÉE SANS CHAUFFEUR)</strong></p>
+<p>Entre les soussignés :</p><div class="box"><strong>La société AutoLoc 60</strong><br>Immatriculée au RCS de Compiègne — SIRET : 10014996200019<br>Représentée par M Caetano Fabrice, dirigeant de la société.<br>Ci-après dénommée « Le Loueur ».</div>
+<div class="box"><strong>Le Locataire</strong><br>Nom, prénom : ${esc(c.client)}<br>Date de naissance : ${esc(c.birthDate)||'________________'}<br>Adresse : ${esc(c.address)||'________________'}<br>CP / Ville : ${esc(c.city)||'________________'}<br>E-mail : ${esc(c.email)||'________________'}<br>N° pièce d’identité : ${esc(c.idNo)||'________________'}<br>N° permis : ${esc(c.licenseNo)||'________________'}<br>Obtenu le : ${esc(c.licenseDate)||'________________'}<br>Préfecture : ${esc(c.prefecture)||'________________'}<br>Ci-après dénommé(e) « Le Locataire ».</div>
+<p>Il en a été convenu ce qui suit :</p>
+<div class="article"><h2>ARTICLE 1 – OBJET DU CONTRAT</h2><p>Le présent contrat a pour objet la location, sans chauffeur, de véhicules décrit ci-dessous, pour une durée déterminée et aux conditions définies ci-après.</p></div>
+<div class="article"><h2>ARTICLE 2 – VÉHICULE LOUÉ</h2><p>• Marque : ${esc(c.brand)}<br>• Modèle : ${esc(c.model)}<br>• Immatriculation : ${esc(c.plate)}<br>• Kilométrage de départ : ${esc(c.kmStart)||'________________'}<br>• Type de carburant : ${esc(c.fuelType)} — Autonomie / niveau au départ : ${esc(c.fuelStart)||'________________'}<br>• État du véhicule : Conforme à l’état descriptif joint en annexe (état des lieux).</p><p>Le Locataire reconnaît recevoir le véhicule en bon fonctionnement et de propreté.</p></div>
+<div class="article"><h2>ARTICLE 3 – DURÉE DE LA LOCATION</h2><p>La location est consentie pour la période suivante :<br>• Date et heure de départ : ${dateFr(c.start)}<br>• Date et heure de retour prévues : ${dateFr(c.end)}</p><p>Toute prolongation devra faire l’objet d’un accord écrit préalable du Loueur.</p><p>La durée de location est fixée à 30 jours maximum.</p></div>
+<div class="article"><h2>ARTICLE 4 – PRIX DE LA LOCATION</h2><p>Le coût total de la location est défini selon les conditions convenues, comprenant :</p><p>• La location du véhicule<br>• L’assurance<br>• Le forfait kilométrique</p><p><strong>Montant total : ${esc(c.amount)||'________'} €</strong></p></div>
+<div class="article"><h2>ARTICLE 5 – KILOMÉTRAGE</h2><p>Le kilométrage inclus est limité à 400 km par semaine dans le cadre d'une location hebdomadaire, et à 1500 km dans le cadre d'une location mensuelle.</p><p>Tout kilométrage supplémentaire sera facturé au Locataire à ${esc(c.extraKmPrice)||'0,25'} € TTC par kilomètre.</p><p>Forfait retenu : ${esc(c.kmPackage)}</p></div>
+<div class="article"><h2>ARTICLE 6 – DÉPÔT DE GARANTIE</h2><p>Un dépôt de garantie d’un montant de ${esc(c.deposit)||'300'} € sera exigé au départ du véhicule.</p><p>Il sera restitué au retour du véhicule après vérification de son état, déduction faite des éventuels frais (dommages, carburant manquant, contraventions, kilométrages supplémentaires…). Ce montant pourra être augmenté en fonction des dégâts causés.</p></div>
+<div class="article"><h2>ARTICLE 7 – CONDITIONS D’UTILISATION</h2><p>Le Locataire s’engage à :</p><p>• Utiliser le véhicule de manière normale et responsable.<br>• Ne pas prêter, vendre ou sous-louer le véhicule.<br>• Être titulaire du permis de conduire.<br>• Ne pas sortir de l'Union européenne.</p></div>
+<div class="article"><h2>ARTICLE 8 – ASSURANCE</h2><p>Le véhicule est couvert par une assurance responsabilité civile conformément à la législation en vigueur.</p><p>En cas de sinistre, le Locataire s’engage à prévenir le Loueur immédiatement et à remplir un constat amiable.</p><p>Une franchise d’un montant de 2500 € reste à la charge du Locataire en cas de dommages importants, de véhicule déclaré VGE (véhicule gravement endommagé) ou dans tout autre cas où cette franchise est applicable au titre du contrat d’assurance.</p></div>
+<div class="article"><h2>ARTICLE 9 – ENTRETIEN ET RÉPARATION</h2><p>L’entretien courant est à la charge du locataire (carburant, propreté). Le véhicule devra être restitué avec le même niveau de carburant et le même état de propreté que celui constaté lors de la prise en charge du véhicule sous peine de facturation supplémentaire. Toute panne ou anomalie doit être signalée immédiatement au Loueur.</p></div>
+<div class="article"><h2>ARTICLE 10 – RESTITUTION DU VÉHICULE</h2><p>Le véhicule devra être restitué :</p><p>• À la date et heure prévues<br>• Dans le même état de propreté que celui constaté au départ<br>• Avec le même niveau de carburant</p></div>
+<div class="article"><h2>ARTICLE 11 – RESPONSABILITÉ</h2><p>Le Locataire est responsable de toute infraction au Code de la route commise pendant la durée de la location.</p><p>Les amendes et contraventions resteront à sa charge.</p></div>
+<div class="article"><h2>ARTICLE 12 – RÉSILIATION</h2><p>En cas de non-respect des obligations contractuelles, le Loueur se réserve le droit de résilier le contrat sans indemnité.</p></div>
+<div class="article"><h2>ARTICLE 13 – DROIT APPLICABLE</h2><p>Le présent contrat est soumis au droit français.</p><p>Tout litige relèvera de la compétence des tribunaux du ressort du siège social du Loueur.</p></div>
+<div class="box"><strong>Conditions particulières / observations :</strong><br>${esc(c.terms)||'Néant'}</div>
+<p>Fait à Longueil-Annel, le ${esc(c.date)}.</p>
+<div class="sign"><div><strong>Le Loueur :</strong><br>Signature / Cachet :<br>${c.ownerSig?`<img src="${c.ownerSig}">`:''}</div><div><strong>Le Locataire :</strong><br>Signature avec mention « Bon pour accord » :<br>${c.clientSig?`<img src="${c.clientSig}">`:''}</div></div>
+<p class="small">Modèle reproduit à partir du contrat de base fourni par AutoLoc60. À faire vérifier par un professionnel du droit avant utilisation commerciale. Document généré par AutoLoc60 Manager.</p>
 <script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close();
 }
 
