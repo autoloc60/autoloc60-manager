@@ -1,8 +1,14 @@
-AutoLoc60 Manager — Version 3 style inspiré de la maquette fournie
+AutoLoc60 Manager V10 – correction définitive du fond
 
-1. Remplacez le fichier index.html de votre dépôt GitHub par celui-ci.
-2. Conservez logo.png et fond-auto-v14.jpg dans le même dossier.
-3. Enregistrez les modifications avec Commit changes.
-4. Attendez quelques instants puis rechargez le site avec Ctrl+F5.
+Fichiers à envoyer dans GitHub à la racine du dépôt :
+- index.html
+- logo.png
+- fond-auto-v10.png
 
-Attention : cette version reste un prototype local. Les données sont stockées dans le navigateur.
+Important :
+1. Remplacer l'ancien index.html par celui-ci.
+2. Ajouter fond-auto-v10.png.
+3. Vous pouvez conserver l'ancien fond-auto.png, mais il n'est plus utilisé.
+4. Attendre 1 à 3 minutes puis ouvrir le site dans une fenêtre privée ou faire Ctrl+F5.
+
+La correction utilise background-size: cover : l'image conserve ses proportions et remplit l'écran sans être étirée.
