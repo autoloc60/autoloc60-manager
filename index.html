@@ -43,7 +43,7 @@ body{background:linear-gradient(135deg,#dbeafe 0%,#f8fafc 45%,#fee2e2 100%) !imp
 html, body { min-height: 100%; }
 body {
   background-color: #0b1623 !important;
-  background-image: linear-gradient(rgba(8,18,32,.20), rgba(8,18,32,.20)), url("fond-auto-v14.jpg") !important;
+  background-image: linear-gradient(rgba(8,18,32,.20), rgba(8,18,32,.20)), url("fond-auto-v10.png") !important;
   background-size: cover !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
@@ -65,7 +65,7 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image: linear-gradient(rgba(8,18,32,.12), rgba(8,18,32,.12)), url("fond-auto-v14.jpg");
+  background-image: linear-gradient(rgba(8,18,32,.12), rgba(8,18,32,.12)), url("fond-auto-v10.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -88,7 +88,7 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background-color: #0b1623;
-  background-image: linear-gradient(rgba(8,18,32,.08), rgba(8,18,32,.08)), url("fond-auto-v14.jpg");
+  background-image: linear-gradient(rgba(8,18,32,.08), rgba(8,18,32,.08)), url("fond-auto-v10.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
@@ -113,7 +113,7 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background-color: #0b1623;
-  background-image: url("fond-auto-v14.jpg");
+  background-image: url("fond-auto-v10.png");
   background-repeat: no-repeat;
   background-position: center center;
   /* L'image garde exactement ses proportions : elle n'est ni étirée ni coupée. */
@@ -123,44 +123,22 @@ body::before {
 .main { background: rgba(255,255,255,.06) !important; }
 </style>
 
-<style id="autoloc60-image-style">
-:root{--al-red:#e30613;--al-navy:#071426;--al-text:#172033}
-html,body{background:#eef2f7!important;color:var(--al-text)!important}
-body::before{display:none!important}
-.app{display:flex!important;min-height:100vh;background:#eef2f7!important}
-.sidebar{width:238px!important;min-width:238px!important;padding:22px 14px!important;background:#071426!important;color:#fff!important;box-shadow:none!important;position:sticky!important;top:0!important;height:100vh!important}
-.logo{display:block!important;width:100%!important;height:92px!important;max-height:none!important;object-fit:contain!important;background:transparent!important;border-radius:0!important;margin:0 0 22px!important}
-.nav button{border:0!important;background:transparent!important;border-radius:8px!important;color:#eaf0f8!important;font-size:15px!important;padding:13px 12px!important;margin:3px 0!important;box-shadow:none!important;transform:none!important}
-.nav button.active,.nav button:hover{background:var(--al-red)!important;color:#fff!important;transform:none!important}
-.main{padding:0 24px 28px!important;max-width:none!important;background:#eef2f7!important;min-width:0}
-.top{margin:0 -24px 0!important;padding:14px 24px!important;background:rgba(255,255,255,.9)!important;min-height:66px!important;border-bottom:1px solid #dce3ec!important;align-items:center!important}
-.top h1{font-size:23px!important;font-weight:800!important;color:#0d1728!important}
-.top .sub{font-size:13px!important;margin:3px 0 0!important;color:#6b7280!important}
-.top .actions{align-items:center!important}
-.top .actions .btn:first-child{display:none!important}
-.btn{background:var(--al-red)!important;border-radius:8px!important;padding:11px 15px!important;font-size:13px!important}
-.btn.secondary{background:#fff!important;border:1px solid #d7dee8!important;color:#243044!important}
-#content{padding-top:0!important}
-.al-hero{margin:0 -24px 16px!important;min-height:290px!important;padding:62px 28px 36px!important;background:linear-gradient(90deg,rgba(7,20,38,.90),rgba(7,20,38,.18)),url('fond-auto-v14.jpg') center/cover no-repeat!important;color:#fff!important;position:relative!important;overflow:hidden!important}
-.al-hero h2{font-size:38px!important;line-height:1.08!important;margin:0 0 12px!important;max-width:570px!important;color:#fff!important}
-.al-hero p{font-size:17px!important;line-height:1.45!important;max-width:480px!important;margin:0!important;color:#f2f6fb!important}
-.grid{gap:12px!important}
-.card{border:1px solid #dbe3ee!important;border-radius:12px!important;background:#fff!important;box-shadow:0 3px 12px rgba(15,35,65,.06)!important;backdrop-filter:none!important}
-.metric{min-height:92px!important;display:grid!important;grid-template-columns:48px 1fr!important;grid-template-rows:auto auto!important;column-gap:12px!important;align-items:center!important;padding:16px!important;font-size:14px!important}
-.metric strong{grid-column:2!important;grid-row:1!important;font-size:27px!important;margin:0!important;color:#101827!important}
-.metric .muted{grid-column:2!important;grid-row:2!important;font-size:13px!important}
-.metric:first-child:before,.metric:nth-child(2):before,.metric:nth-child(3):before,.metric:nth-child(4):before{grid-column:1!important;grid-row:1 / span 2!important;display:flex!important;align-items:center!important;justify-content:center!important;width:44px!important;height:44px!important;border-radius:50%!important;font-size:23px!important}
-.metric:first-child:before{content:'🚘';background:#e0efff!important}.metric:nth-child(2):before{content:'📄';background:#d9f9e5!important}.metric:nth-child(3):before{content:'👥';background:#efe5ff!important}.metric:nth-child(4):before{content:'🛡️';background:#fff1c9!important}
-.section{margin-top:12px!important}
-.section h2{font-size:18px!important;color:#111827!important}
-.tablewrap{background:#fff!important;border:1px solid #dbe3ee!important;border-radius:12px!important;padding:0!important;overflow:auto!important}
-.table{border-spacing:0!important}
-.table th{background:#f4f7fb!important;color:#526074!important;font-size:12px!important;padding:13px!important}
-.table td{padding:13px!important;font-size:13px!important;background:#fff!important;border-bottom:1px solid #edf1f5!important}
-.table tr:not(:first-child) td{background:#fff!important;border-top:0!important;border-bottom:1px solid #edf1f5!important;border-radius:0!important}
-.table tr:last-child td{border-bottom:0!important}
-.badge{background:#d8f8e5!important;color:#168447!important}
-@media(max-width:800px){.app{display:block!important}.sidebar{width:100%!important;min-width:0!important;height:auto!important;position:static!important}.main{padding:0 15px 20px!important}.top{margin:0 -15px!important;padding:12px 15px!important}.al-hero{margin:0 -15px 12px!important;padding:34px 20px!important}.al-hero h2{font-size:28px!important}.nav{grid-template-columns:repeat(3,1fr)!important}.nav button{font-size:12px!important}.logo{height:75px!important}}
+<style id="autoloc60-modele-2-transparent">
+/* Modèle 2 : fond visible et blocs du tableau de bord transparents */
+.main { background: transparent !important; }
+#content > .grid:first-child > .card,
+#content > .section.grid > .card {
+  background: rgba(8, 18, 32, .22) !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  color: #fff !important;
+}
+#content > .grid:first-child .muted,
+#content > .section.grid .muted { color: rgba(255,255,255,.78) !important; }
+#content > .section.grid { background: transparent !important; }
+#content > .section.grid h2 { color: #fff !important; }
+#content > .section.grid p { color: #fff !important; }
 </style>
 </head>
 <body>
@@ -175,13 +153,10 @@ body::before{display:none!important}
 <button data-page="inspections">📸 États des lieux</button>
 <button data-page="contracts">📄 Contrats</button>
 <button data-page="deposits">💳 Cautions</button>
-<button data-page="calendar">🗓️ Calendrier</button>
-<button data-page="stats">📊 Statistiques</button>
-<button data-page="settings">⚙️ Paramètres</button>
 </nav>
 </aside>
 <main class="main">
-<div class="top"><div><h1 id="title">Tableau de bord</h1><div class="sub">Gérez facilement votre flotte, vos contrats et vos clients.</div></div><div class="actions"><span class="muted">👤 Admin</span><button class="btn" onclick="exportData()">⇩ Exporter</button></div></div>
+<div class="top"><div><h1 id="title">AutoLoc60 Manager</h1><div class="sub">Gestion privée — administrateur et salarié</div></div><div class="actions"><button class="btn" onclick="quickInspection()">📸 Nouvel état des lieux</button><button class="btn secondary" onclick="exportData()">Exporter les données</button></div></div>
 <section id="content"></section>
 </main>
 </div>
@@ -192,7 +167,7 @@ vehicles:[{id:1,name:'Peugeot 208',plate:'AB-123-CD',km:52450,status:'Disponible
 clients:[],rentals:[],inspections:[],contracts:[],deposits:[]
 };
 function save(){localStorage.setItem('autoloc60',JSON.stringify(state))}
-function page(p){$('#title').textContent={dashboard:'Tableau de bord',vehicles:'Véhicules',rentals:'Locations',clients:'Clients',inspections:'États des lieux',contracts:'Contrats',deposits:'Cautions',calendar:'Calendrier',stats:'Statistiques',settings:'Paramètres'}[p];document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));render(p)}
+function page(p){$('#title').textContent={dashboard:'Tableau de bord',vehicles:'Véhicules',rentals:'Locations',clients:'Clients',inspections:'États des lieux',contracts:'Contrats',deposits:'Cautions'}[p];document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));render(p)}
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>page(b.dataset.page));
 function render(p='dashboard'){
 if(p==='dashboard')return dashboard();
@@ -202,16 +177,16 @@ if(p==='clients')return clients();
 if(p==='inspections')return inspections();
 if(p==='contracts')return contracts();
 if(p==='deposits')return deposits();
-if(p==='calendar'||p==='stats'||p==='settings')return simplePage(p);
 }
 function dashboard(){
-$('#content').innerHTML=`<section class="al-hero"><h2>Bienvenue sur<br><strong>Auto<span style="color:#e30613">Loc60</span></strong> Manager</h2><p>Votre solution simple et complète pour gérer vos véhicules, contrats et clients.</p></section>
-<div class="grid"><div class="card metric"><strong>${state.vehicles.length}</strong><span class="muted">Véhicules<br>dans la flotte</span></div><div class="card metric"><strong>${state.contracts.length}</strong><span class="muted">Contrats<br>en cours</span></div><div class="card metric"><strong>${state.clients.length}</strong><span class="muted">Clients<br>enregistrés</span></div><div class="card metric"><strong>${state.deposits.filter(x=>x.status!=='Restituée').length}</strong><span class="muted">Cautions<br>à suivre</span></div></div>
-<div class="section grid"><div class="card"><h2>Véhicules</h2><p class="muted">Gestion de votre flotte de véhicules</p><div class="actions"><button class="btn" onclick="newVehicle()">＋ Ajouter un véhicule</button><button class="btn secondary" onclick="page('vehicles')">Voir la flotte</button></div></div><div class="card"><h2>Dernières opérations</h2>${state.inspections.slice(-5).reverse().map(x=>`<p>📸 ${x.type} — ${x.vehicle||''} <span class="muted">${x.date||''}</span></p>`).join('')||'<p class="muted">Aucune opération pour le moment.</p>'}</div></div>`;
-}
-function simplePage(p){
-const titles={calendar:'Calendrier',stats:'Statistiques',settings:'Paramètres'};
-$('#content').innerHTML=`<div class="card"><h2>${titles[p]}</h2><p class="muted">Cette rubrique est prête à être développée dans une prochaine version.</p></div>`;
+$('#content').innerHTML=`<div class="grid">
+<div class="card metric">🚘 Véhicules<strong>${state.vehicles.length}</strong><span class="muted">Parc enregistré</span></div>
+<div class="card metric">🔑 Locations en cours<strong>${state.rentals.filter(x=>x.status==='En cours').length}</strong><span class="muted">À surveiller</span></div>
+<div class="card metric">📸 États des lieux<strong>${state.inspections.length}</strong><span class="muted">Départs et retours</span></div>
+<div class="card metric">💳 Cautions<strong>${state.deposits.filter(x=>x.status!=='Restituée').length}</strong><span class="muted">À suivre</span></div>
+</div>
+<div class="section grid"><div class="card"><h2>Actions rapides</h2><div class="actions"><button class="btn" onclick="newRental()">+ Nouvelle location</button><button class="btn secondary" onclick="newClient()">+ Nouveau client</button><button class="btn secondary" onclick="quickInspection()">📸 État des lieux</button><button class="btn secondary" onclick="newContract()">📄 Contrat</button></div></div>
+<div class="card"><h2>Dernières opérations</h2>${state.inspections.slice(-5).reverse().map(x=>`<p>📸 ${x.type} — ${x.vehicle||''} <span class="muted">${x.date||''}</span></p>`).join('')||'<p class="muted">Aucune opération pour le moment.</p>'}</div></div>`;
 }
 function vehicles(){
 $('#content').innerHTML=`<div class="actions"><button class="btn" onclick="newVehicle()">+ Ajouter un véhicule</button></div><div class="section card tablewrap"><table class="table"><tr><th>Véhicule</th><th>Immatriculation</th><th>Kilométrage</th><th>Statut</th><th>Actions</th></tr>${state.vehicles.map((v,i)=>`<tr><td>${v.name}</td><td>${v.plate}</td><td>${v.km} km</td><td><span class="badge">${v.status}</span></td><td><button class="btn secondary" onclick="editVehicle(${i})">✏️ Modifier</button> <button class="btn secondary" onclick="deleteVehicle(${i})">🗑️ Supprimer</button></td></tr>`).join('')}</table></div>`;
@@ -319,7 +294,7 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background-color: #0b1623;
-  background-image: linear-gradient(rgba(8,18,32,.08), rgba(8,18,32,.08)), url("fond-auto-v14.jpg");
+  background-image: linear-gradient(rgba(8,18,32,.08), rgba(8,18,32,.08)), url("fond-auto-v10.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
@@ -344,7 +319,7 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background-color: #0b1623;
-  background-image: url("fond-auto-v14.jpg");
+  background-image: url("fond-auto-v10.png");
   background-repeat: no-repeat;
   background-position: center center;
   /* L'image garde exactement ses proportions : elle n'est ni étirée ni coupée. */
@@ -354,44 +329,22 @@ body::before {
 .main { background: rgba(255,255,255,.06) !important; }
 </style>
 
-<style id="autoloc60-image-style">
-:root{--al-red:#e30613;--al-navy:#071426;--al-text:#172033}
-html,body{background:#eef2f7!important;color:var(--al-text)!important}
-body::before{display:none!important}
-.app{display:flex!important;min-height:100vh;background:#eef2f7!important}
-.sidebar{width:238px!important;min-width:238px!important;padding:22px 14px!important;background:#071426!important;color:#fff!important;box-shadow:none!important;position:sticky!important;top:0!important;height:100vh!important}
-.logo{display:block!important;width:100%!important;height:92px!important;max-height:none!important;object-fit:contain!important;background:transparent!important;border-radius:0!important;margin:0 0 22px!important}
-.nav button{border:0!important;background:transparent!important;border-radius:8px!important;color:#eaf0f8!important;font-size:15px!important;padding:13px 12px!important;margin:3px 0!important;box-shadow:none!important;transform:none!important}
-.nav button.active,.nav button:hover{background:var(--al-red)!important;color:#fff!important;transform:none!important}
-.main{padding:0 24px 28px!important;max-width:none!important;background:#eef2f7!important;min-width:0}
-.top{margin:0 -24px 0!important;padding:14px 24px!important;background:rgba(255,255,255,.9)!important;min-height:66px!important;border-bottom:1px solid #dce3ec!important;align-items:center!important}
-.top h1{font-size:23px!important;font-weight:800!important;color:#0d1728!important}
-.top .sub{font-size:13px!important;margin:3px 0 0!important;color:#6b7280!important}
-.top .actions{align-items:center!important}
-.top .actions .btn:first-child{display:none!important}
-.btn{background:var(--al-red)!important;border-radius:8px!important;padding:11px 15px!important;font-size:13px!important}
-.btn.secondary{background:#fff!important;border:1px solid #d7dee8!important;color:#243044!important}
-#content{padding-top:0!important}
-.al-hero{margin:0 -24px 16px!important;min-height:290px!important;padding:62px 28px 36px!important;background:linear-gradient(90deg,rgba(7,20,38,.90),rgba(7,20,38,.18)),url('fond-auto-v14.jpg') center/cover no-repeat!important;color:#fff!important;position:relative!important;overflow:hidden!important}
-.al-hero h2{font-size:38px!important;line-height:1.08!important;margin:0 0 12px!important;max-width:570px!important;color:#fff!important}
-.al-hero p{font-size:17px!important;line-height:1.45!important;max-width:480px!important;margin:0!important;color:#f2f6fb!important}
-.grid{gap:12px!important}
-.card{border:1px solid #dbe3ee!important;border-radius:12px!important;background:#fff!important;box-shadow:0 3px 12px rgba(15,35,65,.06)!important;backdrop-filter:none!important}
-.metric{min-height:92px!important;display:grid!important;grid-template-columns:48px 1fr!important;grid-template-rows:auto auto!important;column-gap:12px!important;align-items:center!important;padding:16px!important;font-size:14px!important}
-.metric strong{grid-column:2!important;grid-row:1!important;font-size:27px!important;margin:0!important;color:#101827!important}
-.metric .muted{grid-column:2!important;grid-row:2!important;font-size:13px!important}
-.metric:first-child:before,.metric:nth-child(2):before,.metric:nth-child(3):before,.metric:nth-child(4):before{grid-column:1!important;grid-row:1 / span 2!important;display:flex!important;align-items:center!important;justify-content:center!important;width:44px!important;height:44px!important;border-radius:50%!important;font-size:23px!important}
-.metric:first-child:before{content:'🚘';background:#e0efff!important}.metric:nth-child(2):before{content:'📄';background:#d9f9e5!important}.metric:nth-child(3):before{content:'👥';background:#efe5ff!important}.metric:nth-child(4):before{content:'🛡️';background:#fff1c9!important}
-.section{margin-top:12px!important}
-.section h2{font-size:18px!important;color:#111827!important}
-.tablewrap{background:#fff!important;border:1px solid #dbe3ee!important;border-radius:12px!important;padding:0!important;overflow:auto!important}
-.table{border-spacing:0!important}
-.table th{background:#f4f7fb!important;color:#526074!important;font-size:12px!important;padding:13px!important}
-.table td{padding:13px!important;font-size:13px!important;background:#fff!important;border-bottom:1px solid #edf1f5!important}
-.table tr:not(:first-child) td{background:#fff!important;border-top:0!important;border-bottom:1px solid #edf1f5!important;border-radius:0!important}
-.table tr:last-child td{border-bottom:0!important}
-.badge{background:#d8f8e5!important;color:#168447!important}
-@media(max-width:800px){.app{display:block!important}.sidebar{width:100%!important;min-width:0!important;height:auto!important;position:static!important}.main{padding:0 15px 20px!important}.top{margin:0 -15px!important;padding:12px 15px!important}.al-hero{margin:0 -15px 12px!important;padding:34px 20px!important}.al-hero h2{font-size:28px!important}.nav{grid-template-columns:repeat(3,1fr)!important}.nav button{font-size:12px!important}.logo{height:75px!important}}
+<style id="autoloc60-modele-2-transparent">
+/* Modèle 2 : fond visible et blocs du tableau de bord transparents */
+.main { background: transparent !important; }
+#content > .grid:first-child > .card,
+#content > .section.grid > .card {
+  background: rgba(8, 18, 32, .22) !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  color: #fff !important;
+}
+#content > .grid:first-child .muted,
+#content > .section.grid .muted { color: rgba(255,255,255,.78) !important; }
+#content > .section.grid { background: transparent !important; }
+#content > .section.grid h2 { color: #fff !important; }
+#content > .section.grid p { color: #fff !important; }
 </style>
 </head><body>
 <div style="text-align:center;margin-bottom:14px"><img src="${logoData}" alt="AutoLoc60" style="max-width:220px;max-height:90px;object-fit:contain"></div><h1>CONTRAT DE LOCATION DE VÉHICULE</h1><p style="text-align:center"><strong>(COURTE DURÉE SANS CHAUFFEUR)</strong></p>
@@ -417,7 +370,7 @@ body::before{display:none!important}
 <p class="small">Modèle reproduit à partir du contrat de base fourni par AutoLoc60. À faire vérifier par un professionnel du droit avant utilisation commerciale. Document généré par AutoLoc60 Manager.</p>
 <script>window.onload=()=>window.print()<\/script><style id="autoloc60-final-no-stretch">
 html,body{min-height:100%;}
-body{background-color:#07101d!important;background-image:url("fond-auto-final.jpg")!important;background-repeat:no-repeat!important;background-position:center top!important;background-size:100% auto!important;background-attachment:scroll!important;overflow-x:hidden!important;}
+body{background-color:#07101d!important;background-image:url("fond-auto-v10.png")!important;background-repeat:no-repeat!important;background-position:center top!important;background-size:100% auto!important;background-attachment:scroll!important;overflow-x:hidden!important;}
 body::before{display:none!important;}
 .app,.main{background:transparent!important;}
 @media(max-width:800px){body{background-size:auto 300px!important;background-position:center top!important;background-color:#07101d!important;}}
@@ -429,12 +382,110 @@ render();
 </script>
 <style id="autoloc60-final-no-stretch">
 html,body{min-height:100%;}
-body{background-color:#07101d!important;background-image:url("fond-auto-final.jpg")!important;background-repeat:no-repeat!important;background-position:center top!important;background-size:100% auto!important;background-attachment:scroll!important;overflow-x:hidden!important;}
+body{background-color:#07101d!important;background-image:url("fond-auto-v10.png")!important;background-repeat:no-repeat!important;background-position:center top!important;background-size:100% auto!important;background-attachment:scroll!important;overflow-x:hidden!important;}
 body::before{display:none!important;}
 .app,.main{background:transparent!important;}
 @media(max-width:800px){body{background-size:auto 300px!important;background-position:center top!important;background-color:#07101d!important;}}
 </style>
+
+
+<style id="autoloc60-glass-transparent-final">
+/* Fond paysage visible + interface vitrée/transparente */
+html, body { min-height:100%; }
+body {
+  background-color:#081220 !important;
+  background-image:linear-gradient(rgba(5,14,27,.18),rgba(5,14,27,.18)),url("fond-auto-v10.png") !important;
+  background-size:cover !important;
+  background-position:center center !important;
+  background-repeat:no-repeat !important;
+  background-attachment:fixed !important;
+  color:#fff !important;
+}
+.app, .main { background:transparent !important; }
+.sidebar {
+  background:rgba(5,18,36,.72) !important;
+  border-right:1px solid rgba(255,255,255,.16) !important;
+  box-shadow:5px 0 25px rgba(0,0,0,.18) !important;
+  backdrop-filter:blur(8px) !important;
+}
+.logo { background:rgba(255,255,255,.10) !important; }
+.top {
+  background:rgba(7,20,38,.42) !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  border-radius:16px !important;
+  padding:16px 20px !important;
+  backdrop-filter:blur(8px) !important;
+}
+.main { color:#fff !important; }
+.main h1, .main h2, .main h3, .main p, .main label, .main th, .main td, .main .muted {
+  text-shadow:0 1px 3px rgba(0,0,0,.35);
+}
+.main .muted { color:rgba(255,255,255,.82) !important; }
+.card, .tablewrap, .formgrid, .photo-grid, .signature-grid {
+  background:rgba(8,22,40,.42) !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  box-shadow:0 8px 25px rgba(0,0,0,.14) !important;
+  backdrop-filter:blur(8px) !important;
+}
+.grid>.card:nth-child(2), .grid>.card:nth-child(3), .grid>.card:nth-child(4) {
+  background:rgba(8,22,40,.42) !important;
+  border-color:rgba(255,255,255,.20) !important;
+}
+#content > .grid:first-child > .card, #content > .section.grid > .card {
+  background:rgba(8,22,40,.20) !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+}
+.table tr:not(:first-child) td {
+  background:rgba(8,22,40,.42) !important;
+  border-top:1px solid rgba(255,255,255,.12) !important;
+  border-bottom:1px solid rgba(255,255,255,.12) !important;
+  color:#fff !important;
+}
+.table th { color:#fff !important; }
+.field, .photo-slot, .signature-box {
+  background:rgba(8,22,40,.48) !important;
+  border-color:rgba(255,255,255,.22) !important;
+  color:#fff !important;
+}
+.field input, .field select, .field textarea {
+  background:rgba(255,255,255,.90) !important;
+  color:#111827 !important;
+}
+.notice {
+  background:rgba(127,29,29,.52) !important;
+  color:#fff !important;
+  border-left-color:#ef4444 !important;
+}
+.badge { text-shadow:none !important; }
+.btn.secondary {
+  background:rgba(255,255,255,.18) !important;
+  color:#fff !important;
+  border-color:rgba(255,255,255,.35) !important;
+  backdrop-filter:blur(5px) !important;
+}
+@media(max-width:800px){
+  body { background-attachment:scroll !important; background-position:center top !important; }
+  .main { background:rgba(5,14,27,.12) !important; }
+  .top { padding:13px !important; }
+}
+</style>
 </body>
+
+<style id="autoloc60-background-fix">
+html, body { min-height: 100%; }
+body {
+  background-color: #0b1623 !important;
+  background-image: linear-gradient(rgba(5,12,24,.18), rgba(5,12,24,.18)), url("fond-auto-v10.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center top !important;
+  background-size: cover !important;
+  background-attachment: fixed !important;
+}
+.app, .main { background: transparent !important; }
+@media (max-width: 800px) {
+  body { background-attachment: scroll !important; background-position: center top !important; background-size: cover !important; }
+}
+</style>
 </html>
 
 <style id="autoloc60-v13-real-background">
@@ -442,7 +493,7 @@ body::before{display:none!important;}
 html, body { min-height:100%; }
 body {
   background: #0b1623 !important;
-  background-image: linear-gradient(rgba(5,12,24,.30),rgba(5,12,24,.30)), url("fond-auto-v14.jpg") !important;
+  background-image: linear-gradient(rgba(5,12,24,.30),rgba(5,12,24,.30)), url("fond-auto-v10.png") !important;
   background-repeat: no-repeat !important;
   background-position: center center !important;
   background-size: cover !important;
@@ -457,8 +508,38 @@ body::before { display:none !important; }
 
 <style id="autoloc60-v14-responsive-background">
 html,body{min-height:100%;}
-body{background:#0b1623!important;background-image:linear-gradient(rgba(8,18,32,.18),rgba(8,18,32,.18)),url("fond-auto-v14.jpg")!important;background-repeat:no-repeat!important;background-position:center top!important;background-size:cover!important;background-attachment:fixed!important;overflow-x:hidden;}
+body{background:#0b1623!important;background-image:linear-gradient(rgba(8,18,32,.18),rgba(8,18,32,.18)),url("fond-auto-v10.png")!important;background-repeat:no-repeat!important;background-position:center top!important;background-size:cover!important;background-attachment:fixed!important;overflow-x:hidden;}
 body::before{display:none!important;}
 .app,.main{background:transparent!important;}
 @media(max-width:800px){body{background-position:center top!important;background-size:auto 100vh!important;background-attachment:scroll!important;}.main{background:rgba(8,18,32,.20)!important;}}
+</style>
+
+<style id="autoloc60-modele-2-correction">
+/* Correction définitive du modèle 2 : tableau de bord sans encadrés */
+#content > .grid:first-child,
+#content > .section.grid {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+#content > .grid:first-child > .card,
+#content > .section.grid > .card {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  color: #fff !important;
+}
+#content > .grid:first-child > .card .muted,
+#content > .section.grid > .card .muted {
+  color: rgba(255,255,255,.82) !important;
+}
+#content > .grid:first-child > .card strong {
+  color: #fff !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,.35);
+}
+#content > .section.grid > .card h2,
+#content > .section.grid > .card p {
+  color: #fff !important;
+}
 </style>
